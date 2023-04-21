@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Predicting Personal Loan Approval</title>
+    <style>
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap');
+        *{
+            box-sizing: border-box;
+            font-family: Ubuntu;
+        }
+        body{
+            padding: 0px;
+            margin: 0%;
+            animation: fadein 0.5s ease-in;
+        }
+        #main_container{
+            width: 100%;
+            height: 100%;
+            display: flex;
+            position: fixed;
+            display: grid;
+            flex-direction: row;
+            background-color: blue;
+            justify-content: center;
+            align-content: center;
+            justify-items: center;
+            background-image: url('../static/img/a1.jpg');
+            background-size: cover;
+        }
+        #inner_container{
+            border: 2px solid rgb(255, 255, 255,0.5);
+            background-color: rgba(0, 0, 0, 0.4);
+            padding: 20px;
+            position: relative;
+            border-radius: 5px;
+        }
+        #title{
+            content: "PRECICTING PERSONAL LOAN APPROVAL";
+            display: inline-block;
+            position: absolute;
+            top:-3.5em;
+            left: -2px;
+            padding: 15px 30px;
+            color: white;
+            background-color: rgb(0, 0, 0,0.4);
+            border: 2px solid rgb(255, 255, 255,0.5);
+            border-radius: 5px;
+            width: max-content;
+            overflow: visible;
+        }
+        label{color: white;}
+        input,select{
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: none;
+            border-radius: 3px;
+        }
+        p{
+            display: grid;
+            grid-auto-flow: column;
+            grid-gap: 10px;
+            grid-auto-columns: 1fr;
+            color: white;
+        }
+        #content1,#content2,#content3{
+            display: none;
+            animation: fadein 3s;
+            /* overflow: hidden; */
+        }
+        @keyframes fadein{
+            from{
+                opacity: 0;
+            }
+        }
+        #inner_container[show=content1] #content1{
+            display: grid;
+        }
+        #inner_container[show=content2] #content2{
+            display: grid;
+        }
+        #inner_container[show=content3] #content3{
+            display: grid;
+        }
+        iframe{
+            border:none;
+            height:max-content;
+            width: max-content;
+        }
+        #content1{
+            color:white;
+            gap: 20px;
+            padding: 20px;
+        }
+        button{
+            padding: 10px;
+            border-radius: 3px;
+            border: none;
+        }
+        button , input[type=submit]{
+            background-color: green;
+            color: white;
+        }
+        button:hover,input[type=submit]:hover{
+            transition: background-color 0.5s;
+            background-color: rgba(0, 128, 0, 0.7);
+        }
+    </style>
+</head>
+<body>
+    <section id="main_container">
+        <div id="inner_container">
+            <span id="title">personal loan approval prediction</span>
+            <div id="content1">
+                <div>
+                    Are you ready to predict whether you can avail a personal loan...
+                </div>
+                <button onclick="show('content2')">predict</button>
+            </div>
+            <div id="content2">
+                <form method="post" target="frame" onsubmit="onSubmitFuntion()" action="/prediction">
+                    <p>Give some details about you to predict ...</p>
+                    <p>
+                        <label>
+                            Gender
+                            <select name="Gender" required>
+                                <option selected>Male</option>
+                                <option>Female</option>
+                            </select>
+                        </label>
+                        <label>
+                            Married
+                            <select name="Married" required>
+                                <option selected>Yes</option>
+                                <option>No</option>
+                            </select>
+                        </label>
+                        <label>
+                            Dependents
+                            <select name="Dependents" required>
+                                <option selected>0</option>
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3+</option>
+                            </select>
+                        </label>
+                    </p>
+                    <p>
+                        <label>
+                            Education
+                            <select name="Education" required>
+                                <option selected>Graduate</option>
+                                <option>Not Graduate</option>
+                            </select>
+                        </label>
+                        <label>
+                            Self_Employed
+                            <select name="Self_Employed" required>
+                                <option selected>Yes</option>
+                                <option>No</option>
+                            </select>
+                        </label>
+                    </p>
+                    <p>
+                        <label>
+                            ApplicantIncome
+                            <input required type="number" name="ApplicantIncome">
+                        </label>
+                        <label>
+                            CoapplicantIncome
+                            <input required type="number" name="CoapplicantIncome">
+                        </label>
+                    </p>
+                    <p>
+                        <label>Credit_History
+                            <select name="Credit_History" required>
+                                <option>0</option>
+                                <option selected>1</option>
+                            </select>
+                        </label>
+                        <label>
+                            Property_Area
+                            <select name="Property_Area" required>
+                                <option selected>Urban</option>
+                                <option>Rural</option>
+                                <option>Semiurban</option>
+                            </select>
+                        </label>
+                    </p>
+                    <p>
+                        <label>
+                            LoanAmount
+                            <input required type="number" name="LoanAmount">
+                        </label>
+                        <label>Loan_Amount_Term
+                            <input required type="number" name="Loan_Amount_Term">
+                        </label>
+                    </p>
+                    <p>
+                        <input type="submit" value="PREDICT">
+                    </p>
+                </form>
+            </div>
+            <div id="content3">
+                <iframe name="frame"></iframe>
+                <button onclick="show('content2')">Try again...</button>
+            </div>
+        </div>
+    </section>
+    <script>
+        function show(id){
+            ic = document.getElementById('inner_container')
+            ic.setAttribute('show',id)
+            // ic.style.height = (ic.scrollHeight+20)+'px'
+            // ic.style.width = (ic.scrollWidth+20)+'px'            
+            console.log(ic.scrollHeight,ic.scrollWidth)
+            console.log(ic.style.clientWidth)
+        }
+        function onSubmitFuntion(){
+            show('content3')
+        }
+        show('content1')
+    </script>
+</body>
+</html>

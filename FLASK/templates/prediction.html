@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>prediction</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap');
+        *{
+            box-sizing: border-box;
+            font-family: Ubuntu;
+        }
+        body{
+            padding: 0px;
+            display: flex;
+            justify-content: center;
+            align-content: center;
+            justify-items: center;
+            align-items: center;
+        }
+        div{
+            color: white;
+            padding: 20px;
+            border-radius: 5px;
+        }
+        .positive{
+            background-color: white;
+            color: green;
+        }
+        .negative{
+            background-color: white;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="{{response.result_type}}">{{ response.result }}</div>
+</body>
+</html>
